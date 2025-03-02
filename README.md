@@ -28,9 +28,8 @@ A beautifully customizable new tab replacement for modern browsers. Transform yo
 
 1. Visit [https://thatsinewave.github.io/New-Tab](https://thatsinewave.github.io/New-Tab)
 2. Set this URL as your browser's new tab page:
-   - **Chrome:** Settings > On startup > Open specific page
-   - **Firefox:** about:preferences#home > Homepage URLs
-   - **Edge:** Settings > On startup > Open specific pages
+   - **Chrome:** Use the [New Tab Redirect extension](https://chromewebstore.google.com/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna) to change your new tab page to a custom URL, and set it to [https://thatsinewave.github.io/New-Tab](https://thatsinewave.github.io/New-Tab).
+   - **Firefox:** Use the [New Tab Override](https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/) to change your new tab page to a custom URL, and set it to [https://thatsinewave.github.io/New-Tab](https://thatsinewave.github.io/New-Tab).
 
 ## Usage
 
