@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const themeStylesheet = document.getElementById("themeStylesheet");
     const favoritesBar = document.getElementById("favoritesBar");
     const frequentItems = document.getElementById("frequentItems");
+    const frequentSearchesElement = document.querySelector(".frequent-searches");
+    const favoritesContainerElement = document.querySelector(".favorites-container");
 
     // Default Configuration
     const defaultFavorites = [
@@ -41,6 +43,14 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector(`input[name="theme"][value="${savedTheme}"]`).checked = true;
         applyTheme(savedTheme);
 
+        // Visibility Settings
+        const visibilities = ['clock', 'frequent', 'favorites'];
+        visibilities.forEach(section => {
+            const savedVisibility = localStorage.getItem(`${section}Visibility`) || "shown";
+            document.querySelector(`input[name="${section}Visibility"][value="${savedVisibility}"]`).checked = true;
+            applyVisibility(section, savedVisibility);
+        });
+
         // Initialize defaults if missing
         if (!localStorage.getItem("searchEngine")) {
             localStorage.setItem("searchEngine", "google");
@@ -48,6 +58,28 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!localStorage.getItem("theme")) {
             localStorage.setItem("theme", "default");
         }
+        visibilities.forEach(section => {
+            if (!localStorage.getItem(`${section}Visibility`)) {
+                localStorage.setItem(`${section}Visibility`, "shown");
+            }
+        });
+    }
+
+    function applyVisibility(section, visibility) {
+        const elements = {
+            clock: clockElement,
+            frequent: frequentSearchesElement,
+            favorites: favoritesContainerElement
+        };
+
+        if (visibility === "hidden") {
+            elements[section].classList.add("hidden");
+        } else {
+            elements[section].classList.remove("hidden");
+        }
+
+        // Force reflow to maintain positioning
+        void document.body.offsetHeight; // This line is new
     }
 
     // Settings Panel Interactions
@@ -82,6 +114,15 @@ document.addEventListener("DOMContentLoaded", () => {
         themeStylesheet.href = `themes/${theme}.css`;
         document.body.className = `theme-${theme}`;
     }
+
+    // Visibility Toggles
+    document.querySelectorAll('input[name^="clock"], input[name^="frequent"], input[name^="favorites"]').forEach(radio => {
+        radio.addEventListener("change", (e) => {
+            const section = e.target.name.replace("Visibility", "");
+            localStorage.setItem(`${section}Visibility`, e.target.value);
+            applyVisibility(section, e.target.value);
+        });
+    });
 
     // Search Functionality
     searchBox.addEventListener("keypress", (e) => {

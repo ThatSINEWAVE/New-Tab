@@ -529,6 +529,10 @@ body {
     height: auto;
 }
 
+.hidden {
+  display: none !important;
+}
+
 /* Footer */
 footer {
 	position: fixed;
