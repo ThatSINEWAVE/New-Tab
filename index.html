@@ -1,54 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Tab</title>
     <link id="themeStylesheet" rel="stylesheet" href="themes/default.css">
     <script defer src="script.js"></script>
-</head>
-<body>
-    <!-- Clock -->
+  </head>
+  <body>
     <div class="clock" id="clock"></div>
-
-    <!-- Settings Wheel -->
     <div class="settings">
-        <button id="settingsBtn">⚙</button>
-        <div id="dropdown" class="dropdown">
-            <p>Search Engine:</p>
-            <label><input type="radio" name="searchEngine" value="google"> <span>Google</span></label>
-            <label><input type="radio" name="searchEngine" value="bing"> <span>Bing</span></label>
-            <label><input type="radio" name="searchEngine" value="duckduckgo"> <span>DuckDuckGo</span></label>
-            <label><input type="radio" name="searchEngine" value="brave"> <span>Brave</span></label>
-            <hr>
-            <p>Theme:</p>
-            <label><input type="radio" name="theme" value="default"> <span>Default</span></label>
-            <label><input type="radio" name="theme" value="minimal-white"> <span>Minimal White</span></label>
-            <label><input type="radio" name="theme" value="minimal-dark"> <span>Minimal Dark</span></label>
-            <label><input type="radio" name="theme" value="cyberpunk"> <span>Cyberpunk</span></label>
-            <label><input type="radio" name="theme" value="retro"> <span>Retro</span></label>
-        </div>
+      <button id="settingsBtn">⚙</button>
+      <div id="dropdown" class="dropdown">
+        <p>Search Engine:</p>
+        <label>
+          <input type="radio" name="searchEngine" value="google">
+          <span>Google</span>
+        </label>
+        <label>
+          <input type="radio" name="searchEngine" value="bing">
+          <span>Bing</span>
+        </label>
+        <label>
+          <input type="radio" name="searchEngine" value="duckduckgo">
+          <span>DuckDuckGo</span>
+        </label>
+        <label>
+          <input type="radio" name="searchEngine" value="brave">
+          <span>Brave</span>
+        </label>
+        <hr>
+        <p>Theme:</p>
+        <label>
+          <input type="radio" name="theme" value="default">
+          <span>Default</span>
+        </label>
+        <label>
+          <input type="radio" name="theme" value="minimal-white">
+          <span>Minimal White</span>
+        </label>
+        <label>
+          <input type="radio" name="theme" value="minimal-dark">
+          <span>Minimal Dark</span>
+        </label>
+        <label>
+          <input type="radio" name="theme" value="cyberpunk">
+          <span>Cyberpunk</span>
+        </label>
+        <label>
+          <input type="radio" name="theme" value="retro">
+          <span>Retro</span>
+        </label>
+      </div>
     </div>
-
-    <!-- Search Box -->
     <div class="container">
-        <div class="search-container">
-            <span class="prompt">></span>
-            <input type="text" id="searchBox" placeholder="Type your search..." autofocus>
-        </div>
+      <div class="search-container">
+        <span class="prompt">></span>
+        <input type="text" id="searchBox" placeholder="Type your search..." autofocus>
+      </div>
     </div>
-
-    <!-- Invisible Footer -->
     <footer>
-        <a href="https://discord.gg/yourserver" target="blank">
-            <img src="site-data/icons/Discord.png" alt="Discord">
-        </a>
-        <a href="https://github.com/your-repo" target="blank">
-            <img src="site-data/icons/Logo.png" alt="Repo">
-        </a>
-        <a href="https://donate.com/yourdonationlink" target="blank">
-            <img src="site-data/icons/Heart.png" alt="Donate">
-        </a>
+      <a href="https://discord.gg/yourserver" target="blank">
+        <img src="site-data/icons/Discord.png" alt="Discord">
+      </a>
+      <a href="https://github.com/your-repo" target="blank">
+        <img src="site-data/icons/Logo.png" alt="Repo">
+      </a>
+      <a href="https://donate.com/yourdonationlink" target="blank">
+        <img src="site-data/icons/Heart.png" alt="Donate">
+      </a>
     </footer>
-</body>
+  </body>
 </html>
