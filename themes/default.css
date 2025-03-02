@@ -428,6 +428,15 @@ body {
     background: rgba(0, 255, 0, 0.1);
 }
 
+.no-searches-message {
+    color: rgba(0, 255, 0, 0.5);
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.2);
+    line-height: 1.4;
+}
+
 /* Various Adjustments */
 .container,
 .frequent-searches,

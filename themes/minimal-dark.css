@@ -418,6 +418,14 @@ body {
     background: #2d2d2d;
 }
 
+.no-searches-message {
+    color: rgba(224, 224, 224, 0.6);
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
 /* Various Adjustments */
 .container,
 .frequent-searches,

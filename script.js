@@ -189,9 +189,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderFrequentSearches() {
         const searches = JSON.parse(localStorage.getItem('frequentSearches')) || [];
-        frequentItems.innerHTML = searches
-            .map(search => `<div class="frequent-item">${search}</div>`)
-            .join('');
+        frequentItems.innerHTML = searches.length > 0
+            ? searches.map(search => `<div class="frequent-item">${search}</div>`).join('')
+            : `<div class="no-searches-message">Your frequent searches will appear here,<br>search for something to get started!</div>`;
     }
 
     function handleFrequentSearch(e) {

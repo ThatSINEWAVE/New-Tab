@@ -453,6 +453,15 @@ body {
     box-shadow: 2px 2px 0px #ff00ff;
 }
 
+.no-searches-message {
+    color: rgba(255, 204, 0, 0.6);
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    text-shadow: 1px 1px 0px rgba(255, 0, 255, 0.3);
+    line-height: 1.4;
+}
+
 /* Various Adjustments */
 .container,
 .frequent-searches,
