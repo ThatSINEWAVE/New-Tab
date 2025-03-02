@@ -1,0 +1,368 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #0a0a1a;
+    color: #f0f0ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    transition: all 0.3s ease;
+    background-image: linear-gradient(to bottom, rgba(10, 10, 26, 0.9), rgba(10, 10, 26, 0.99)),
+                      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" /><path d="M0 50 L100 50 M50 0 L50 100" stroke="rgba(80, 80, 255, 0.1)" stroke-width="0.5" /></svg>');
+    background-size: cover, 20px 20px;
+}
+
+/* Clock */
+.clock {
+    position: absolute;
+    top: 20px;
+    font-size: 24px;
+    text-align: center;
+    color: #f0f;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.7), 0 0 20px rgba(255, 0, 255, 0.5);
+    font-weight: bold;
+}
+
+/* Settings Menu */
+.settings {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+#settingsBtn {
+    font-size: 20px;
+    background: transparent;
+    color: #0ff;
+    border: none;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#settingsBtn:hover {
+    transform: rotate(90deg);
+    text-shadow: 0 0 10px rgba(0, 255, 255, 1);
+}
+
+.settings-panel {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    width: 320px;
+    background: rgba(10, 10, 26, 0.9);
+    border: 1px solid #0ff;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 255, 255, 0.1);
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.settings-panel.active {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+    padding-bottom: 10px;
+}
+
+.settings-header h3 {
+    color: #0ff;
+    font-size: 18px;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#closeSettings {
+    background: transparent;
+    border: none;
+    color: #0ff;
+    font-size: 20px;
+    cursor: pointer;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+}
+
+.settings-section {
+    margin-bottom: 20px;
+}
+
+.settings-section h4 {
+    color: #0ff;
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    width: 220px;
+    background: rgba(10, 10, 26, 0.9);
+    border: 1px solid #0ff;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), inset 0 0 5px rgba(0, 255, 255, 0.1);
+    z-index: 101;
+    backdrop-filter: blur(5px);
+}
+
+.dropdown.show {
+    display: block;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown p {
+    color: #0ff;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.dropdown label {
+    display: block;
+    padding: 5px 0;
+    margin-left: 10px;
+    color: #b0b0ff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.dropdown label:hover {
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+}
+
+.dropdown input[type="radio"] {
+    margin-right: 8px;
+    accent-color: #0ff;
+}
+
+.dropdown input[type="radio"]:checked + span {
+    color: #0ff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+}
+
+.dropdown hr {
+    border: none;
+    border-top: 1px solid rgba(0, 255, 255, 0.3);
+    margin: 10px 0;
+}
+
+.option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.option-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(30, 30, 50, 0.5);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.option-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 0%, rgba(0, 255, 255, 0.05) 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.option-card:hover {
+    background: rgba(40, 40, 70, 0.6);
+    border-color: rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+.option-card:hover::before {
+    opacity: 1;
+}
+
+.option-card input[type="radio"] {
+    appearance: none;
+    width: 0;
+    height: 0;
+}
+
+.option-card input[type="radio"]:checked + .option-name {
+    color: #0ff;
+    text-shadow: 0 0 5px #0ff;
+}
+
+.option-card input[type="radio"]:checked ~ .theme-preview {
+    border-color: #0ff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+.option-name {
+    margin: 5px 0;
+    color: #b0b0ff;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.theme-preview {
+    width: 100%;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.cyberpunk-preview {
+    background: #0a0a1a;
+    position: relative;
+    background-image: linear-gradient(to right, rgba(255, 0, 255, 0.2), rgba(0, 255, 255, 0.2));
+}
+
+/* Search Box */
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background: rgba(20, 20, 40, 0.6);
+    border: 2px solid #0ff;
+    padding: 12px;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), inset 0 0 5px rgba(0, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.search-container::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    animation: searchGlow 3s linear infinite;
+}
+
+@keyframes searchGlow {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.search-container:hover {
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.5), inset 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+.prompt {
+    color: #0ff;
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+#searchBox {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background: none;
+    color: #fff;
+    font-size: 18px;
+    caret-color: #f0f;
+    width: 100%;
+}
+
+#searchBox::placeholder {
+    color: rgba(176, 176, 255, 0.5);
+}
+
+footer {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.1;
+    transition: opacity 0.3s ease-in-out;
+    display: flex;
+    gap: 15px;
+}
+
+footer:hover {
+    opacity: 0.7;
+}
+
+footer a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+footer img {
+    display: block;
+    width: 24px;
+    height: 24px;
+    filter: hue-rotate(150deg) brightness(1.5);
+    transition: all 0.3s ease-in-out;
+}
+
+footer img:hover {
+    filter: hue-rotate(150deg) brightness(2);
+    transform: scale(1.2);
+}
