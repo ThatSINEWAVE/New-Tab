@@ -7,9 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const themeRadios = document.querySelectorAll('input[name="theme"]');
     const clockElement = document.getElementById("clock");
     const themeStylesheet = document.getElementById("themeStylesheet");
-
-    // New favorites elements
     const favoritesBar = document.getElementById("favoritesBar");
+
+    // Default favorites
     const defaultFavorites = [
         { name: 'GitHub', url: 'https://github.com' },
         { name: 'YouTube', url: 'https://youtube.com' },
@@ -18,109 +18,87 @@ document.addEventListener("DOMContentLoaded", () => {
         { name: 'Wikipedia', url: 'https://wikipedia.org' }
     ];
 
-    // Load saved settings with first-load defaults
+    // Load saved settings
     function loadSavedSettings() {
-        // Search engine initialization
         const savedEngine = localStorage.getItem("searchEngine") || "google";
-        const engineRadio = document.querySelector(`input[name="searchEngine"][value="${savedEngine}"]`);
-        if (engineRadio) engineRadio.checked = true;
+        document.querySelector(`input[name="searchEngine"][value="${savedEngine}"]`).checked = true;
 
-        // Theme initialization
         const savedTheme = localStorage.getItem("theme") || "default";
-        const themeRadio = document.querySelector(`input[name="theme"][value="${savedTheme}"]`);
-        if (themeRadio) themeRadio.checked = true;
+        document.querySelector(`input[name="theme"][value="${savedTheme}"]`).checked = true;
         applyTheme(savedTheme);
 
-        // Force defaults if no settings exist
         if (!localStorage.getItem("searchEngine")) {
-            document.querySelector('input[name="searchEngine"][value="google"]').checked = true;
             localStorage.setItem("searchEngine", "google");
         }
         if (!localStorage.getItem("theme")) {
-            document.querySelector('input[name="theme"][value="default"]').checked = true;
-            applyTheme("default");
             localStorage.setItem("theme", "default");
         }
     }
 
-    // Toggle settings dropdown
-    settingsBtn.addEventListener("click", (event) => {
-        event.stopPropagation();
+    // Settings dropdown toggle
+    settingsBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
         dropdown.classList.toggle("show");
     });
 
-    // Close dropdown when clicking outside
-    document.addEventListener("click", (event) => {
-        if (!settingsBtn.contains(event.target) && !dropdown.contains(event.target)) {
+    document.addEventListener("click", (e) => {
+        if (!settingsBtn.contains(e.target) && !dropdown.contains(e.target)) {
             dropdown.classList.remove("show");
         }
     });
 
-    // Save search engine preference
+    // Search engine persistence
     searchEngineRadios.forEach(radio => {
         radio.addEventListener("change", () => {
             localStorage.setItem("searchEngine", radio.value);
         });
     });
 
-    // Save and apply theme preference
+    // Theme handling
     themeRadios.forEach(radio => {
         radio.addEventListener("change", () => {
-            const selectedTheme = radio.value;
-            localStorage.setItem("theme", selectedTheme);
-            applyTheme(selectedTheme);
+            const theme = radio.value;
+            localStorage.setItem("theme", theme);
+            applyTheme(theme);
         });
     });
 
-    // Search functionality
-    searchBox.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") {
-            const query = searchBox.value.trim();
-            if (query === "") return;
-
-            const selectedEngine = document.querySelector('input[name="searchEngine"]:checked').value;
-            let searchURL = "";
-
-            switch (selectedEngine) {
-                case "google":
-                    searchURL = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-                    break;
-                case "bing":
-                    searchURL = `https://www.bing.com/search?q=${encodeURIComponent(query)}`;
-                    break;
-                case "duckduckgo":
-                    searchURL = `https://duckduckgo.com/?q=${encodeURIComponent(query)}`;
-                    break;
-                case "brave":
-                    searchURL = `https://search.brave.com/search?q=${encodeURIComponent(query)}`;
-                    break;
-                default:
-                    searchURL = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-            }
-
-            window.location.href = searchURL;
-        }
-    });
-
-    // Clock functionality
-    function updateClock() {
-        const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        clockElement.textContent = `${hours}:${minutes}:${seconds}`;
-    }
-
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // Theme application
     function applyTheme(theme) {
         themeStylesheet.href = `themes/${theme}.css`;
         document.body.className = `theme-${theme}`;
     }
 
-    // Favorites functionality
+    // Search functionality
+    searchBox.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            const query = searchBox.value.trim();
+            if (!query) return;
+
+            const engine = document.querySelector('input[name="searchEngine"]:checked').value;
+            const engines = {
+                google: `https://www.google.com/search?q=${encodeURIComponent(query)}`,
+                bing: `https://www.bing.com/search?q=${encodeURIComponent(query)}`,
+                duckduckgo: `https://duckduckgo.com/?q=${encodeURIComponent(query)}`,
+                brave: `https://search.brave.com/search?q=${encodeURIComponent(query)}`
+            };
+            window.location.href = engines[engine] || engines.google;
+        }
+    });
+
+    // Clock
+    function updateClock() {
+        const now = new Date();
+        clockElement.textContent = now.toLocaleTimeString('en-US', {
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Favorites system
     function loadFavorites() {
         const favorites = JSON.parse(localStorage.getItem('favorites')) || defaultFavorites;
         favoritesBar.innerHTML = '';
@@ -141,13 +119,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span class="favorite-name">${fav.name}</span>
                 `;
             } catch {
-                // Fallback for invalid URLs
                 favElement.innerHTML = `
                     <button class="edit-favorite" data-index="${index}">•••</button>
-                    <div class="favorite-link invalid-link">
+                    <div class="favorite-link invalid">
                         <span>!</span>
                     </div>
-                    <span class="favorite-name">Invalid URL</span>
+                    <span class="favorite-name">Invalid</span>
                 `;
             }
 
@@ -155,25 +132,31 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function handleEditFavorite(event) {
-        if (!event.target.classList.contains('edit-favorite')) return;
+    function handleEditFavorite(e) {
+        if (!e.target.classList.contains('edit-favorite')) return;
 
-        const index = event.target.dataset.index;
+        const index = e.target.dataset.index;
         const favorites = JSON.parse(localStorage.getItem('favorites')) || defaultFavorites;
-        const newUrl = prompt('Enter new URL:', favorites[index].url);
+        const current = favorites[index];
 
-        if (newUrl) {
-            try {
-                const url = new URL(newUrl);
-                favorites[index] = {
-                    name: url.hostname.replace('www.', ''),
-                    url: newUrl
-                };
-                localStorage.setItem('favorites', JSON.stringify(favorites));
-                loadFavorites();
-            } catch {
-                alert('Please enter a valid URL (include http:// or https://)');
-            }
+        // Edit name
+        const newName = prompt('Edit site name:', current.name);
+        if (newName === null) return;
+
+        // Edit URL
+        const newUrl = prompt('Edit site URL:', current.url);
+        if (newUrl === null) return;
+
+        try {
+            const url = new URL(newUrl);
+            favorites[index] = {
+                name: newName.trim() || url.hostname.replace('www.', ''),
+                url: newUrl
+            };
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            loadFavorites();
+        } catch {
+            alert('Invalid URL format! Please include http:// or https://');
         }
     }
 
