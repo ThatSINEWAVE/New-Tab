@@ -7,8 +7,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const clockElement = document.getElementById("clock");
     const themeStylesheet = document.getElementById("themeStylesheet");
 
-    // Load saved settings
-    loadSavedSettings();
+    // Load saved settings with first-load defaults
+    function loadSavedSettings() {
+        // Search engine initialization
+        const savedEngine = localStorage.getItem("searchEngine") || "google";
+        const engineRadio = document.querySelector(`input[name="searchEngine"][value="${savedEngine}"]`);
+        if (engineRadio) engineRadio.checked = true;
+
+        // Theme initialization
+        const savedTheme = localStorage.getItem("theme") || "default";
+        const themeRadio = document.querySelector(`input[name="theme"][value="${savedTheme}"]`);
+        if (themeRadio) themeRadio.checked = true;
+        applyTheme(savedTheme);
+
+        // Force defaults if no settings exist
+        if (!localStorage.getItem("searchEngine")) {
+            document.querySelector('input[name="searchEngine"][value="google"]').checked = true;
+            localStorage.setItem("searchEngine", "google");
+        }
+        if (!localStorage.getItem("theme")) {
+            document.querySelector('input[name="theme"][value="default"]').checked = true;
+            applyTheme("default");
+            localStorage.setItem("theme", "default");
+        }
+    }
 
     // Toggle settings dropdown
     settingsBtn.addEventListener("click", (event) => {
@@ -16,22 +38,21 @@ document.addEventListener("DOMContentLoaded", () => {
         dropdown.classList.toggle("show");
     });
 
-    // Close dropdown if clicking outside
+    // Close dropdown when clicking outside
     document.addEventListener("click", (event) => {
-        if (!settingsBtn.contains(event.target) &&
-            !dropdown.contains(event.target)) {
+        if (!settingsBtn.contains(event.target) && !dropdown.contains(event.target)) {
             dropdown.classList.remove("show");
         }
     });
 
-    // Save selected search engine
+    // Save search engine preference
     searchEngineRadios.forEach(radio => {
         radio.addEventListener("change", () => {
             localStorage.setItem("searchEngine", radio.value);
         });
     });
 
-    // Save and apply selected theme
+    // Save and apply theme preference
     themeRadios.forEach(radio => {
         radio.addEventListener("change", () => {
             const selectedTheme = radio.value;
@@ -40,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Search function
+    // Search functionality
     searchBox.addEventListener("keypress", (event) => {
         if (event.key === "Enter") {
             const query = searchBox.value.trim();
@@ -70,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Clock function
+    // Clock functionality
     function updateClock() {
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, '0');
@@ -82,22 +103,12 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Helper functions
-    function loadSavedSettings() {
-        // Load saved search engine
-        const savedEngine = localStorage.getItem("searchEngine") || "google";
-        const engineRadio = document.querySelector(`input[name="searchEngine"][value="${savedEngine}"]`);
-        if (engineRadio) engineRadio.checked = true;
-
-        // Load saved theme
-        const savedTheme = localStorage.getItem("theme") || "default";
-        const themeRadio = document.querySelector(`input[name="theme"][value="${savedTheme}"]`);
-        if (themeRadio) themeRadio.checked = true;
-        applyTheme(savedTheme);
-    }
-
+    // Theme application
     function applyTheme(theme) {
         themeStylesheet.href = `themes/${theme}.css`;
         document.body.className = `theme-${theme}`;
     }
+
+    // Initial setup
+    loadSavedSettings();
 });
