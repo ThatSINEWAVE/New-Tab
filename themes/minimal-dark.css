@@ -286,21 +286,32 @@ body {
 
 /* Favorites Bar */
 .favorites-container {
-    position: absolute;
-    top: 60%;
+    position: static;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    z-index: 99;
+    max-width: 500px;
+    background: #1e1e1e;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.favorites-container h4 {
+    color: #e0e0e0;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
 }
 
 .favorites-bar {
     display: flex;
-    gap: 25px;
-    padding: 15px;
-    background: rgba(30, 30, 30, 0.9);
-    border-radius: 25px;
-    backdrop-filter: blur(10px);
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 .favorite-item {
@@ -310,10 +321,6 @@ body {
     align-items: center;
     width: 64px;
     transition: transform 0.2s ease;
-}
-
-.favorite-item:hover {
-    transform: translateY(-3px);
 }
 
 .favorite-link {
@@ -368,6 +375,83 @@ body {
     white-space: nowrap;
 }
 
+/* Frequent Searches */
+.frequent-searches {
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 500px;
+    background: #1e1e1e;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.frequent-searches h4 {
+    color: #e0e0e0;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.frequent-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.frequent-item {
+    background: #252525;
+    color: #e0e0e0;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+.frequent-item:hover {
+    background: #2d2d2d;
+}
+
+/* Various Adjustments */
+.container,
+.frequent-searches,
+.favorites-container {
+    position: static;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 15px auto;
+}
+
+.container {
+    order: 1;
+    margin: auto auto 15px;
+}
+
+.frequent-searches {
+    order: 2;
+    margin: 15px auto;
+}
+
+.favorites-container {
+    order: 3;
+    margin: 15px auto auto;
+}
+
+body {
+    justify-content: center;
+    padding: 20px;
+    min-height: 100vh;
+    height: auto;
+}
+
+/* Footer */
 footer {
 	position: fixed;
 	bottom: 10px;
@@ -392,11 +476,9 @@ footer img {
 	display: block;
 	width: 24px;
 	height: 24px;
-	filter: brightness(0.8) contrast(1.2);
 	transition: all 0.3s ease-in-out;
 }
 
 footer img:hover {
 	transform: scale(1.1);
-	filter: brightness(1) contrast(1.2);
 }

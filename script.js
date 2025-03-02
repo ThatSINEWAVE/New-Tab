@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Existing elements
+    // DOM Elements
     const searchBox = document.getElementById("searchBox");
     const settingsBtn = document.getElementById("settingsBtn");
     const dropdown = document.getElementById("dropdown");
@@ -8,25 +8,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const clockElement = document.getElementById("clock");
     const themeStylesheet = document.getElementById("themeStylesheet");
     const favoritesBar = document.getElementById("favoritesBar");
+    const frequentItems = document.getElementById("frequentItems");
 
-    // Default favorites
+    // Default Configuration
     const defaultFavorites = [
         { name: 'GitHub', url: 'https://github.com' },
         { name: 'YouTube', url: 'https://youtube.com' },
         { name: 'Reddit', url: 'https://reddit.com' },
         { name: 'Twitter', url: 'https://twitter.com' },
-        { name: 'Wikipedia', url: 'https://wikipedia.org' }
+        { name: 'Wikipedia', url: 'https://wikipedia.org' },
+        { name: 'Google', url: 'https://google.com' }
     ];
 
-    // Load saved settings
+    // Force reset favorites for existing users
+    if (!localStorage.getItem('favorites')) {
+        localStorage.setItem('favorites', JSON.stringify(defaultFavorites));
+    } else {
+        const existingFavorites = JSON.parse(localStorage.getItem('favorites'));
+        if (existingFavorites.length < 6) {
+            localStorage.setItem('favorites', JSON.stringify(defaultFavorites));
+        }
+    }
+
+    // Settings Management
     function loadSavedSettings() {
+        // Search Engine
         const savedEngine = localStorage.getItem("searchEngine") || "google";
         document.querySelector(`input[name="searchEngine"][value="${savedEngine}"]`).checked = true;
 
+        // Theme
         const savedTheme = localStorage.getItem("theme") || "default";
         document.querySelector(`input[name="theme"][value="${savedTheme}"]`).checked = true;
         applyTheme(savedTheme);
 
+        // Initialize defaults if missing
         if (!localStorage.getItem("searchEngine")) {
             localStorage.setItem("searchEngine", "google");
         }
@@ -35,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Settings dropdown toggle
+    // Settings Panel Interactions
     settingsBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         dropdown.classList.toggle("show");
@@ -47,14 +62,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Search engine persistence
+    // Search Engine Persistence
     searchEngineRadios.forEach(radio => {
         radio.addEventListener("change", () => {
             localStorage.setItem("searchEngine", radio.value);
         });
     });
 
-    // Theme handling
+    // Theme Management
     themeRadios.forEach(radio => {
         radio.addEventListener("change", () => {
             const theme = radio.value;
@@ -68,11 +83,13 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.className = `theme-${theme}`;
     }
 
-    // Search functionality
+    // Search Functionality
     searchBox.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
             const query = searchBox.value.trim();
             if (!query) return;
+
+            updateFrequentSearches(query);
 
             const engine = document.querySelector('input[name="searchEngine"]:checked').value;
             const engines = {
@@ -85,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Clock
+    // Clock System
     function updateClock() {
         const now = new Date();
         clockElement.textContent = now.toLocaleTimeString('en-US', {
@@ -98,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Favorites system
+    // Favorites System
     function loadFavorites() {
         const favorites = JSON.parse(localStorage.getItem('favorites')) || defaultFavorites;
         favoritesBar.innerHTML = '';
@@ -139,11 +156,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const favorites = JSON.parse(localStorage.getItem('favorites')) || defaultFavorites;
         const current = favorites[index];
 
-        // Edit name
         const newName = prompt('Edit site name:', current.name);
         if (newName === null) return;
 
-        // Edit URL
         const newUrl = prompt('Edit site URL:', current.url);
         if (newUrl === null) return;
 
@@ -160,13 +175,50 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Initialize favorites
+    // Frequent Searches System
+    const MAX_FREQUENT = 3;
+
+    function updateFrequentSearches(query) {
+        let searches = JSON.parse(localStorage.getItem('frequentSearches')) || [];
+        searches = searches.filter(item => item !== query);
+        searches.unshift(query);
+        searches = searches.slice(0, MAX_FREQUENT);
+        localStorage.setItem('frequentSearches', JSON.stringify(searches));
+        renderFrequentSearches();
+    }
+
+    function renderFrequentSearches() {
+        const searches = JSON.parse(localStorage.getItem('frequentSearches')) || [];
+        frequentItems.innerHTML = searches
+            .map(search => `<div class="frequent-item">${search}</div>`)
+            .join('');
+    }
+
+    function handleFrequentSearch(e) {
+        if (!e.target.classList.contains('frequent-item')) return;
+
+        const query = e.target.textContent;
+        updateFrequentSearches(query);
+
+        const engine = document.querySelector('input[name="searchEngine"]:checked').value;
+        const engines = {
+            google: `https://www.google.com/search?q=${encodeURIComponent(query)}`,
+            bing: `https://www.bing.com/search?q=${encodeURIComponent(query)}`,
+            duckduckgo: `https://duckduckgo.com/?q=${encodeURIComponent(query)}`,
+            brave: `https://search.brave.com/search?q=${encodeURIComponent(query)}`
+        };
+        window.location.href = engines[engine] || engines.google;
+    }
+
+    // Initialization
     if (!localStorage.getItem('favorites')) {
         localStorage.setItem('favorites', JSON.stringify(defaultFavorites));
     }
     loadFavorites();
     favoritesBar.addEventListener('click', handleEditFavorite);
 
-    // Initial setup
+    renderFrequentSearches();
+    frequentItems.addEventListener('click', handleFrequentSearch);
+
     loadSavedSettings();
 });
