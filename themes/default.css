@@ -288,6 +288,96 @@ body {
 	font-style: italic;
 }
 
+/* Favorites Bar */
+.favorites-container {
+    position: absolute;
+    top: 60%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 99;
+}
+
+.favorites-bar {
+    display: flex;
+    gap: 25px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    border: 1px solid #0f03;
+}
+
+.favorite-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 64px;
+    transition: transform 0.2s ease;
+}
+
+.favorite-item:hover {
+    transform: translateY(-3px);
+}
+
+.favorite-link {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(0, 255, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #0f03;
+    transition: all 0.3s ease;
+}
+
+.favorite-link:hover {
+    background: rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+}
+
+.favorite-icon {
+    width: 24px;
+    height: 24px;
+    filter: hue-rotate(60deg);
+}
+
+.edit-favorite {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: rgba(0, 255, 0, 0.8);
+    border: none;
+    color: #000;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    font-size: 8px;
+    padding: 0;
+    font-family: 'Courier New', monospace;
+    transition: all 0.3s ease;
+}
+
+.edit-favorite:hover {
+    background: #0f0;
+    transform: scale(1.1);
+}
+
+.favorite-name {
+    color: #0f0;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: center;
+    max-width: 75px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+
 footer {
 	position: fixed;
 	bottom: 10px;

@@ -310,6 +310,95 @@ body {
 	color: rgba(255, 204, 0, 0.5);
 }
 
+/* Favorites Bar */
+.favorites-container {
+    position: absolute;
+    top: 60%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 99;
+}
+
+.favorites-bar {
+    display: flex;
+    gap: 25px;
+    padding: 15px;
+    background: #330055;
+    border: 2px solid #ffcc00;
+    box-shadow: 4px 4px 0px #ff00ff;
+}
+
+.favorite-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 64px;
+    transition: all 0.3s ease;
+}
+
+.favorite-item:hover {
+    transform: translateY(-5px) scale(1.1);
+}
+
+.favorite-link {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #550077;
+    border: 2px solid #ffcc00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.favorite-link:hover {
+    background: #660088;
+    box-shadow: 2px 2px 0px #ff00ff;
+}
+
+.favorite-icon {
+    width: 24px;
+    height: 24px;
+    image-rendering: pixelated;
+}
+
+.edit-favorite {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ffcc00;
+    border: 2px solid #ff00ff;
+    color: #000;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    font-size: 8px;
+    padding: 0;
+    font-family: 'VT323', monospace;
+    transition: all 0.3s ease;
+}
+
+.edit-favorite:hover {
+    background: #ff00ff;
+    border-color: #ffcc00;
+}
+
+.favorite-name {
+    color: #ffcc00;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: center;
+    max-width: 75px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-shadow: 1px 1px 0px #ff00ff;
+}
+
 footer {
 	position: fixed;
 	bottom: 10px;

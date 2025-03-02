@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Existing elements
     const searchBox = document.getElementById("searchBox");
     const settingsBtn = document.getElementById("settingsBtn");
     const dropdown = document.getElementById("dropdown");
@@ -6,6 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const themeRadios = document.querySelectorAll('input[name="theme"]');
     const clockElement = document.getElementById("clock");
     const themeStylesheet = document.getElementById("themeStylesheet");
+
+    // New favorites elements
+    const favoritesBar = document.getElementById("favoritesBar");
+    const defaultFavorites = [
+        { name: 'GitHub', url: 'https://github.com' },
+        { name: 'YouTube', url: 'https://youtube.com' },
+        { name: 'Reddit', url: 'https://reddit.com' },
+        { name: 'Twitter', url: 'https://twitter.com' },
+        { name: 'Wikipedia', url: 'https://wikipedia.org' }
+    ];
 
     // Load saved settings with first-load defaults
     function loadSavedSettings() {
@@ -108,6 +119,70 @@ document.addEventListener("DOMContentLoaded", () => {
         themeStylesheet.href = `themes/${theme}.css`;
         document.body.className = `theme-${theme}`;
     }
+
+    // Favorites functionality
+    function loadFavorites() {
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || defaultFavorites;
+        favoritesBar.innerHTML = '';
+
+        favorites.forEach((fav, index) => {
+            const favElement = document.createElement('div');
+            favElement.className = 'favorite-item';
+
+            try {
+                const url = new URL(fav.url);
+                favElement.innerHTML = `
+                    <button class="edit-favorite" data-index="${index}">•••</button>
+                    <a href="${fav.url}" target="_blank" class="favorite-link">
+                        <img src="https://www.google.com/s2/favicons?domain=${url.hostname}&sz=64"
+                             alt="${fav.name}"
+                             class="favorite-icon">
+                    </a>
+                    <span class="favorite-name">${fav.name}</span>
+                `;
+            } catch {
+                // Fallback for invalid URLs
+                favElement.innerHTML = `
+                    <button class="edit-favorite" data-index="${index}">•••</button>
+                    <div class="favorite-link invalid-link">
+                        <span>!</span>
+                    </div>
+                    <span class="favorite-name">Invalid URL</span>
+                `;
+            }
+
+            favoritesBar.appendChild(favElement);
+        });
+    }
+
+    function handleEditFavorite(event) {
+        if (!event.target.classList.contains('edit-favorite')) return;
+
+        const index = event.target.dataset.index;
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || defaultFavorites;
+        const newUrl = prompt('Enter new URL:', favorites[index].url);
+
+        if (newUrl) {
+            try {
+                const url = new URL(newUrl);
+                favorites[index] = {
+                    name: url.hostname.replace('www.', ''),
+                    url: newUrl
+                };
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+                loadFavorites();
+            } catch {
+                alert('Please enter a valid URL (include http:// or https://)');
+            }
+        }
+    }
+
+    // Initialize favorites
+    if (!localStorage.getItem('favorites')) {
+        localStorage.setItem('favorites', JSON.stringify(defaultFavorites));
+    }
+    loadFavorites();
+    favoritesBar.addEventListener('click', handleEditFavorite);
 
     // Initial setup
     loadSavedSettings();
