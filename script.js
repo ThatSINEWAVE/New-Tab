@@ -2,29 +2,41 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchBox = document.getElementById("searchBox");
     const settingsBtn = document.getElementById("settingsBtn");
     const dropdown = document.getElementById("dropdown");
-    const radios = document.querySelectorAll('input[name="searchEngine"]');
+    const searchEngineRadios = document.querySelectorAll('input[name="searchEngine"]');
+    const themeRadios = document.querySelectorAll('input[name="theme"]');
     const clockElement = document.getElementById("clock");
+    const themeStylesheet = document.getElementById("themeStylesheet");
 
-    // Load saved search engine
-    const savedEngine = localStorage.getItem("searchEngine") || "google";
-    document.querySelector(`input[value="${savedEngine}"]`).checked = true;
+    // Load saved settings
+    loadSavedSettings();
 
-    // Toggle dropdown menu
-    settingsBtn.addEventListener("click", () => {
-        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    // Toggle settings dropdown
+    settingsBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        dropdown.classList.toggle("show");
     });
 
     // Close dropdown if clicking outside
     document.addEventListener("click", (event) => {
-        if (!settingsBtn.contains(event.target) && !dropdown.contains(event.target)) {
-            dropdown.style.display = "none";
+        if (!settingsBtn.contains(event.target) &&
+            !dropdown.contains(event.target)) {
+            dropdown.classList.remove("show");
         }
     });
 
     // Save selected search engine
-    radios.forEach(radio => {
+    searchEngineRadios.forEach(radio => {
         radio.addEventListener("change", () => {
             localStorage.setItem("searchEngine", radio.value);
+        });
+    });
+
+    // Save and apply selected theme
+    themeRadios.forEach(radio => {
+        radio.addEventListener("change", () => {
+            const selectedTheme = radio.value;
+            localStorage.setItem("theme", selectedTheme);
+            applyTheme(selectedTheme);
         });
     });
 
@@ -50,6 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 case "brave":
                     searchURL = `https://search.brave.com/search?q=${encodeURIComponent(query)}`;
                     break;
+                default:
+                    searchURL = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
             }
 
             window.location.href = searchURL;
@@ -67,4 +81,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setInterval(updateClock, 1000);
     updateClock();
+
+    // Helper functions
+    function loadSavedSettings() {
+        // Load saved search engine
+        const savedEngine = localStorage.getItem("searchEngine") || "google";
+        const engineRadio = document.querySelector(`input[name="searchEngine"][value="${savedEngine}"]`);
+        if (engineRadio) engineRadio.checked = true;
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem("theme") || "default";
+        const themeRadio = document.querySelector(`input[name="theme"][value="${savedTheme}"]`);
+        if (themeRadio) themeRadio.checked = true;
+        applyTheme(savedTheme);
+    }
+
+    function applyTheme(theme) {
+        themeStylesheet.href = `themes/${theme}.css`;
+        document.body.className = `theme-${theme}`;
+    }
 });
