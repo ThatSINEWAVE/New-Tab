@@ -13,13 +13,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const favoritesContainerElement = document.querySelector(".favorites-container");
 
     // Default Configuration
-    const defaultFavorites = [
-        { name: 'GitHub', url: 'https://github.com' },
-        { name: 'YouTube', url: 'https://youtube.com' },
-        { name: 'Reddit', url: 'https://reddit.com' },
-        { name: 'Twitter', url: 'https://twitter.com' },
-        { name: 'Wikipedia', url: 'https://wikipedia.org' },
-        { name: 'Google', url: 'https://google.com' }
+    const defaultFavorites = [{
+            name: 'GitHub',
+            url: 'https://github.com'
+        },
+        {
+            name: 'YouTube',
+            url: 'https://youtube.com'
+        },
+        {
+            name: 'Reddit',
+            url: 'https://reddit.com'
+        },
+        {
+            name: 'Twitter',
+            url: 'https://twitter.com'
+        },
+        {
+            name: 'Wikipedia',
+            url: 'https://wikipedia.org'
+        },
+        {
+            name: 'Google',
+            url: 'https://google.com'
+        }
     ];
 
     // Force reset favorites for existing users
@@ -73,13 +90,21 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         if (visibility === "hidden") {
-            elements[section].classList.add("hidden");
+            elements[section].classList.add('hidden');
+            // Adjust margins when hiding
+            if (section === 'favorites') {
+                frequentSearchesElement.style.marginBottom = '15px';
+            }
         } else {
-            elements[section].classList.remove("hidden");
+            elements[section].classList.remove('hidden');
+            // Reset margins when showing
+            if (section === 'favorites') {
+                frequentSearchesElement.style.marginBottom = '';
+            }
         }
 
-        // Force reflow to maintain positioning
-        void document.body.offsetHeight; // This line is new
+        // Force reflow to trigger animations
+        void elements[section].offsetHeight;
     }
 
     // Settings Panel Interactions
@@ -230,9 +255,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderFrequentSearches() {
         const searches = JSON.parse(localStorage.getItem('frequentSearches')) || [];
-        frequentItems.innerHTML = searches.length > 0
-            ? searches.map(search => `<div class="frequent-item">${search}</div>`).join('')
-            : `<div class="no-searches-message">Your frequent searches will appear here,<br>search for something to get started!</div>`;
+        frequentItems.innerHTML = searches.length > 0 ?
+            searches.map(search => `<div class="frequent-item">${search}</div>`).join('') :
+            `<div class="no-searches-message">Your frequent searches will appear here,<br>search for something to get started!</div>`;
     }
 
     function handleFrequentSearch(e) {

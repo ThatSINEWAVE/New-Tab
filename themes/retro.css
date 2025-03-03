@@ -14,6 +14,7 @@ body {
 	align-items: center;
 	height: 100vh;
 	transition: all 0.3s ease;
+	gap: 15px;
 	background-image:
 		radial-gradient(circle at 50% 50%, rgba(255, 0, 255, 0.1) 0%, transparent 60%),
 		repeating-linear-gradient(0deg, rgba(255, 204, 0, 0.1) 0px, rgba(255, 204, 0, 0) 2px, transparent 2px, transparent 4px);
@@ -29,6 +30,7 @@ body {
 	text-shadow: 2px 2px 0px #ff00ff;
 	font-weight: bold;
 	letter-spacing: 2px;
+	transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 /* Settings Menu */
@@ -312,191 +314,209 @@ body {
 
 /* Favorites Bar */
 .favorites-container {
-    position: static;
-    width: 100%;
-    max-width: 500px;
-    background: #330055;
-    border: 2px solid #ffcc00;
-    padding: 15px;
-    margin: 15px auto;
-    box-shadow: 4px 4px 0px #ff00ff;
+	position: static;
+	width: 100%;
+	max-width: 500px;
+	background: #330055;
+	border: 2px solid #ffcc00;
+	padding: 15px;
+	margin: 15px auto;
+	box-shadow: 4px 4px 0px #ff00ff;
+	transition: opacity 0.3s ease, margin 0.3s ease, transform 0.3s ease;
 }
 
 .favorites-container h4 {
-    color: #ffcc00;
-    margin-bottom: 20px;
-    font-size: 16px;
-    text-transform: uppercase;
-    text-shadow: 1px 1px 0px #ff00ff;
-    text-align: center;
+	color: #ffcc00;
+	margin-bottom: 20px;
+	font-size: 16px;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 0px #ff00ff;
+	text-align: center;
 }
 
 .favorites-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 0;
-    background: transparent;
-    border: none;
-    box-shadow: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px;
+	padding: 0;
+	background: transparent;
+	border: none;
+	box-shadow: none;
 }
 
 .favorite-item {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 64px;
-    transition: all 0.3s ease;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 64px;
+	transition: all 0.3s ease;
 }
 
 .favorite-link {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: #550077;
-    border: 2px solid #ffcc00;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	background: #550077;
+	border: 2px solid #ffcc00;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.3s ease;
 }
 
 .favorite-link:hover {
-    background: #660088;
-    box-shadow: 2px 2px 0px #ff00ff;
+	background: #660088;
+	box-shadow: 2px 2px 0px #ff00ff;
 }
 
 .favorite-icon {
-    width: 24px;
-    height: 24px;
-    image-rendering: pixelated;
+	width: 24px;
+	height: 24px;
+	image-rendering: pixelated;
 }
 
 .edit-favorite {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background: #ffcc00;
-    border: 2px solid #ff00ff;
-    color: #000;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    font-size: 8px;
-    padding: 0;
-    font-family: 'VT323', monospace;
-    transition: all 0.3s ease;
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	background: #ffcc00;
+	border: 2px solid #ff00ff;
+	color: #000;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	font-size: 8px;
+	padding: 0;
+	font-family: 'VT323', monospace;
+	transition: all 0.3s ease;
 }
 
 .edit-favorite:hover {
-    background: #ff00ff;
-    border-color: #ffcc00;
+	background: #ff00ff;
+	border-color: #ffcc00;
 }
 
 .favorite-name {
-    color: #ffcc00;
-    font-size: 12px;
-    margin-top: 5px;
-    text-align: center;
-    max-width: 75px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    text-shadow: 1px 1px 0px #ff00ff;
+	color: #ffcc00;
+	font-size: 12px;
+	margin-top: 5px;
+	text-align: center;
+	max-width: 75px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	text-shadow: 1px 1px 0px #ff00ff;
 }
 
 /* Frequent Searches */
 .frequent-searches {
-    position: absolute;
-    top: 58%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 500px;
-    background: #330055;
-    border: 2px solid #ffcc00;
-    padding: 15px;
-    margin-top: 20px;
-    box-shadow: 4px 4px 0px #ff00ff;
+	position: absolute;
+	top: 58%;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	max-width: 500px;
+	background: #330055;
+	border: 2px solid #ffcc00;
+	padding: 15px;
+	margin-top: 20px;
+	box-shadow: 4px 4px 0px #ff00ff;
+	transition: opacity 0.3s ease, margin 0.3s ease, transform 0.3s ease;
 }
 
 .frequent-searches h4 {
-    color: #ffcc00;
-    margin-bottom: 15px;
-    font-size: 16px;
-    text-transform: uppercase;
-    text-shadow: 1px 1px 0px #ff00ff;
-    text-align: center;
+	color: #ffcc00;
+	margin-bottom: 15px;
+	font-size: 16px;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 0px #ff00ff;
+	text-align: center;
 }
 
 .frequent-items {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
 }
 
 .frequent-item {
-    background: #440066;
-    color: #ffcc00;
-    padding: 10px;
-    border: 1px solid #ffcc00;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 14px;
-    position: relative;
+	background: #440066;
+	color: #ffcc00;
+	padding: 10px;
+	border: 1px solid #ffcc00;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	font-size: 14px;
+	position: relative;
 }
 
 .frequent-item:hover {
-    background: #550077;
-    box-shadow: 2px 2px 0px #ff00ff;
+	background: #550077;
+	box-shadow: 2px 2px 0px #ff00ff;
 }
 
 .no-searches-message {
-    color: rgba(255, 204, 0, 0.6);
-    text-align: center;
-    padding: 15px;
-    font-size: 14px;
-    text-shadow: 1px 1px 0px rgba(255, 0, 255, 0.3);
-    line-height: 1.4;
+	color: rgba(255, 204, 0, 0.6);
+	text-align: center;
+	padding: 15px;
+	font-size: 14px;
+	text-shadow: 1px 1px 0px rgba(255, 0, 255, 0.3);
+	line-height: 1.4;
 }
 
 /* Various Adjustments */
 .container,
 .frequent-searches,
 .favorites-container {
-    position: static;
-    top: auto;
-    left: auto;
-    transform: none;
-    margin: 0 auto;
+	position: static;
+	top: auto;
+	left: auto;
+	transform: none;
+	flex-shrink: 0;
+	transition: all 0.3s ease;
 }
 
 .container {
-    order: 1;
-    margin: 0 auto;
+	order: 1;
+	margin: 0 auto;
 }
 
 .frequent-searches {
-    order: 2;
-    margin: 15px auto 0;
+	order: 2;
+	margin: 15px auto 0;
+	transition: opacity 0.3s ease, margin 0.3s ease, transform 0.3s ease;
 }
 
 .favorites-container {
-    order: 3;
-    margin: 15px auto 0;
+	order: 3;
+	margin: 15px auto 0;
+	transition: opacity 0.3s ease, margin 0.3s ease, transform 0.3s ease;
 }
 
 body {
-    justify-content: center;
-    padding: 20px;
-    min-height: 100vh;
-    height: auto;
+	justify-content: flex-start;
+	padding: 20px;
+	min-height: 100vh;
+	height: auto;
+}
+
+.content-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: auto;
+	margin-bottom: auto;
 }
 
 .hidden {
-  display: none !important;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(-20px);
+	margin: 0;
+	height: 0;
+	pointer-events: none;
 }
 
 /* Footer */
