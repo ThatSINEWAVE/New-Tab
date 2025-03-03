@@ -326,6 +326,11 @@ body::before {
 	justify-content: center;
 	box-shadow: 0 2px 8px rgba(252, 70, 107, 0.4);
 	transition: all 0.3s ease;
+	opacity: 0;
+}
+
+.favorite-item:hover .edit-favorite {
+	opacity: 1;
 }
 
 .edit-favorite:hover {

@@ -362,6 +362,11 @@ body {
 	font-size: 8px;
 	padding: 0;
 	transition: all 0.3s ease;
+	opacity: 0;
+}
+
+.favorite-item:hover .edit-favorite {
+	opacity: 1;
 }
 
 .edit-favorite:hover {
