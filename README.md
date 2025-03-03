@@ -4,7 +4,7 @@
 
 A beautifully customizable new tab replacement for modern browsers. Transform your browser's new tab page into a sleek, personalized dashboard with multiple themes, search engine options, and productivity features.
 
-![New-Tab](https://github.com/user-attachments/assets/51126bd9-443c-4652-a299-22b109e70ed9)
+![New-Tab](https://raw.githubusercontent.com/ThatSINEWAVE/New-Tab/refs/heads/main/.github/SCREENSHOTS/New-Tab.gif)
 
 </div>
 
@@ -51,41 +51,49 @@ A beautifully customizable new tab replacement for modern browsers. Transform yo
 <div align="center">
 
 ### Default Theme
-![New-Tab-Default](https://github.com/user-attachments/assets/148d4b9b-3294-41fd-9b3f-72b7139f56dc)
+![New-Tab-Default](https://raw.githubusercontent.com/ThatSINEWAVE/New-Tab/refs/heads/main/.github/SCREENSHOTS/New-Tab-Default.png)
 
 ### Minimal White
-![New-Tab-Minimal-White](https://github.com/user-attachments/assets/7f4b1d41-80a4-4c35-a872-c51447deb3ce)
+![New-Tab-Minimal-White](https://raw.githubusercontent.com/ThatSINEWAVE/New-Tab/refs/heads/main/.github/SCREENSHOTS/New-Tab-Minimal-White.png)
 
 ### Minimal Dark
-![New-Tab-Minimal-Dark](https://github.com/user-attachments/assets/f9b1b57d-1d42-4550-8b7c-b68cf5f9a702)
+![New-Tab-Minimal-Dark](https://raw.githubusercontent.com/ThatSINEWAVE/New-Tab/refs/heads/main/.github/SCREENSHOTS/New-Tab-Minimal-Dark.png)
+
+### Aurora Flux
+![New-Tab-Aurora-Flux](https://raw.githubusercontent.com/ThatSINEWAVE/New-Tab/refs/heads/main/.github/SCREENSHOTS/New-Tab-Aurora-Flux.png)
 
 ### Cyberpunk
-![New-Tab-Cyberpunk](https://github.com/user-attachments/assets/fd0d7277-10fe-42b9-a3b3-8bfa3551b8fe)
+![New-Tab-Cyberpunk](https://raw.githubusercontent.com/ThatSINEWAVE/New-Tab/refs/heads/main/.github/SCREENSHOTS/New-Tab-Cyberpunk.png)
+
+### Natural
+![New-Tab-Natural](https://raw.githubusercontent.com/ThatSINEWAVE/New-Tab/refs/heads/main/.github/SCREENSHOTS/New-Tab-Natural.png)
 
 ### Retro
-![New-Tab-Retro](https://github.com/user-attachments/assets/0256037c-cb9a-412b-8b90-968ab3510030)
+![New-Tab-Retro](https://raw.githubusercontent.com/ThatSINEWAVE/New-Tab/refs/heads/main/.github/SCREENSHOTS/New-Tab-Retro.png)
 
 </div>
 
 ## Customization
 
 **Personalization Options**:
-- 6 fully customizable favorite slots  
-- Frequent search tracking system  
-- Multiple search engine choices  
-- Theme-specific animations and effects  
-- Custom color schemes for each theme  
+- 6 fully customizable favorite slots
+- Frequent search tracking system
+- Multiple search engine choices
+- Theme-specific animations and effects
+- Custom color schemes for each theme
 
-**Visibility Settings**:  
-- **Clock**: Toggle the real-time clock display  
-- **Frequent Searches**: Show or hide recent searches  
-- **Favorites**: Show or hide the quick-access favorite links  
+**Visibility Settings**:
+- **Clock**: Toggle the real-time clock display
+- **Frequent Searches**: Show or hide recent searches
+- **Favorites**: Show or hide the quick-access favorite links
 
 **Theme Features**:
-- **Cyberpunk**: Neon glow effects and retro-futuristic styling  
-- **Retro**: CRT filter and pixel-perfect details  
-- **Minimal Dark/White**: Clean, distraction-free interfaces  
-- **Default**: Classic terminal-inspired design  
+- **Cyberpunk**: Neon glow effects and retro-futuristic styling
+- **Retro**: CRT filter and pixel-perfect details
+- **Natural**: Nature inspired with good vibes
+- **Aurora Flux**: Aurora inspired with smooth animations
+- **Minimal Dark/White**: Clean, distraction-free interfaces
+- **Default**: Classic terminal-inspired design
 
 <div align="center">
 
