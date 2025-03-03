@@ -84,27 +84,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function applyVisibility(section, visibility) {
         const elements = {
-            clock: clockElement,
-            frequent: frequentSearchesElement,
-            favorites: favoritesContainerElement
+            clock: document.getElementById("clock"),
+            frequent: document.querySelector(".frequent-searches"),
+            favorites: document.querySelector(".favorites-container")
         };
 
         if (visibility === "hidden") {
             elements[section].classList.add('hidden');
-            // Adjust margins when hiding
-            if (section === 'favorites') {
-                frequentSearchesElement.style.marginBottom = '15px';
-            }
         } else {
             elements[section].classList.remove('hidden');
-            // Reset margins when showing
-            if (section === 'favorites') {
-                frequentSearchesElement.style.marginBottom = '';
-            }
         }
 
-        // Force reflow to trigger animations
-        void elements[section].offsetHeight;
+        // Adjust spacing dynamically
+        const favoritesContainer = elements.favorites;
+        const frequentSearches = elements.frequent;
+
+        if (frequentSearches.classList.contains("hidden")) {
+            favoritesContainer.style.marginTop = "-15px"; // Move it up when Frequent Searches is hidden
+        } else {
+            favoritesContainer.style.marginTop = "15px"; // Restore default spacing when shown
+        }
     }
 
     // Settings Panel Interactions
