@@ -350,7 +350,6 @@ body {
 .favorite-icon {
 	width: 24px;
 	height: 24px;
-	filter: hue-rotate(60deg);
 }
 
 .edit-favorite {
