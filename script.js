@@ -30,8 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
             url: 'https://twitter.com'
         },
         {
-            name: 'Wikipedia',
-            url: 'https://wikipedia.org'
+            name: 'Notepad',
+            url: 'https://thatsinewave.github.io/Notepad-Online'
         },
         {
             name: 'Google',
