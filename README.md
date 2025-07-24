@@ -97,7 +97,7 @@ A beautifully customizable new tab replacement for modern browsers. Transform yo
 
 <div align="center">
 
-## [Join my discord server](https://discord.gg/2nHHHBWNDw)
+## [Join my discord server](https://thatsinewave.github.io/Discord-Redirect/)
 
 </div>
 
